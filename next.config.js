@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   env: {
-    OPENAI_API_KEY: "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",
+    OPENAI_API_KEY: "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",
   },
 };
 
