@@ -1,24 +1,10 @@
 "use client";
-
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function Home() {
   const [propmt, setPrompt] = useState<string>("");
   const [openaiResult, setOpenaiResult] = useState<string>("");
   const [isShow, setIsShow] = useState<boolean>(false);
-
-  const router = useRouter();
-
-  // const changePrompt = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-  //   setPrompt(event.target.value);
-  // };
-
-  // const changeOpenaiResult = (
-  //   event: React.ChangeEvent<HTMLTextAreaElement>
-  // ) => {
-  //   setOpenaiResult(event.target.value);
-  // };
 
   const updateState =
     (setter: React.Dispatch<React.SetStateAction<string>>) =>
