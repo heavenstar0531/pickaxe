@@ -5,7 +5,7 @@ export default function Home() {
   const [propmt, setPrompt] = useState<string>("");
   const [openaiResult, setOpenaiResult] = useState<string>("");
   const [isShow, setIsShow] = useState<boolean>(false);
-
+  //console.log
   const updateState =
     (setter: React.Dispatch<React.SetStateAction<string>>) =>
     (event: React.ChangeEvent<HTMLTextAreaElement>) => {
