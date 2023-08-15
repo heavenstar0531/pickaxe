@@ -28,23 +28,26 @@ export default function Home() {
 
   const getPrompt = async () => {
     let data = { prompt: propmt };
-    const response = await fetch("/api/prompt", {
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json",
-      },
-      method: "POST",
-    });
-    const { msg } = await response.json();
-    let result = msg.replace("\n\n", "");
-    setOpenaiResult(result);
-    setIsShow(true);
-    setTimeout(function () {
-      document.getElementById("main")?.scrollBy({
-        top: 300,
-        behavior: "smooth",
+    try {
+      const response = await fetch("/api/prompt", {
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: "POST",
       });
-    }, 100);
+      const { msg } = await response.json();
+      setOpenaiResult(msg.content);
+      setIsShow(true);
+      setTimeout(function () {
+        document.getElementById("main")?.scrollBy({
+          top: 300,
+          behavior: "smooth",
+        });
+      }, 100);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
