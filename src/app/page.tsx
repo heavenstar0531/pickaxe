@@ -101,7 +101,7 @@ export default function Home() {
         <div className="w-1/2 bg-[#F5F1E9] flex flex-col justify-center items-center">
           <img src="/image/robot.png" />
           <div className="text-[32px] text-center font-semibold text-[#000000CC]">
-            Let AI auto-<span style={{color: "#288DD7"}}>magically</span> create your Pickaxe. <br /> Try it out!
+            Let AI auto-<span style={{color: "#EBA300"}}>magically</span> create your Pickaxe. <br /> Try it out!
           </div>
         </div>
         <div
