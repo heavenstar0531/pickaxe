@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
+import TextareaAutosize from 'react-autosize-textarea';
 import "react-toastify/dist/ReactToastify.css";
 
 export default function Home() {
@@ -113,7 +114,7 @@ export default function Home() {
               <div className="text-2xl font-semibold">Step 1</div>
             </div>
             <div>Turn your idea into a prompt</div>
-            <textarea
+            <TextareaAutosize
               value={prompt}
               onChange={updateState(setPrompt)}
               className="w-full rounded-[4px] border-[1px] border-black p-[10px]"
@@ -160,7 +161,7 @@ export default function Home() {
               <div>
                 Look over your prompt, polish it, and turn it into an app
               </div>
-              <textarea
+              <TextareaAutosize
                 value={openaiResult}
                 onChange={updateState(setOpenaiResult)}
                 className="w-full rounded-[4px] border-[1px] border-black p-[10px] h-44"
