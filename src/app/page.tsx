@@ -97,7 +97,7 @@ export default function Home() {
         position="top-right"
         theme="dark"
       />
-      <div className="flex h-screen">
+      <div className="flex">
         <div className="w-1/2 bg-[#F5F1E9] flex flex-col justify-center items-center">
           <img src="/image/robot.png" />
           <div className="text-[32px] text-center font-semibold text-[#000000CC]">
