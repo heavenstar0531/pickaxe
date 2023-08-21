@@ -73,7 +73,7 @@ export default function Home() {
       if (window.top) {
         window.top.location.href = link;
       } else {
-          window.location.href = link;
+        window.location.href = link;
       }
     } catch (error) {
       console.error(error);
