@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import Script from "next/script";
 
 import "./globals.css";
 
@@ -18,6 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <Script src="/axe/scripts/childpage.js" />
         <link rel="stylesheet" href="https://use.typekit.net/opr4dln.css" />
       </head>
       <body className={inter.className}>{children}</body>
