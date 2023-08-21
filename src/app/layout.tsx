@@ -19,7 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <Script src="/axe/scripts/childpage.js" />
+        <Script src="/scripts/childpage.js" />
         <link rel="stylesheet" href="https://use.typekit.net/opr4dln.css" />
       </head>
       <body className={inter.className}>{children}</body>
