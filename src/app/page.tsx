@@ -69,6 +69,7 @@ export default function Home() {
         method: "POST",
       });
       const { link } = await response.json();
+      console.log(link);
       if (window.top) {
         window.top.location.href = link;
       } else {
