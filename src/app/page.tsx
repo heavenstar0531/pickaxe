@@ -3,6 +3,7 @@ import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import TextareaAutosize from 'react-autosize-textarea';
 import "react-toastify/dist/ReactToastify.css";
+import Script from "next/script";
 
 export default function Home() {
   const [prompt, setPrompt] = useState<string>("");
@@ -86,6 +87,7 @@ export default function Home() {
 
   return (
     <main>
+      <Script src="/axe/scripts/childpage.js" />
       <ToastContainer
         closeOnClick
         draggable
@@ -113,7 +115,7 @@ export default function Home() {
               <img className="h-6" src="/image/zap.png" />
               <div className="text-2xl font-semibold">Describe</div>
             </div>
-            <div>Your idea will be auto-magically expanded into a Pickaxe prompt.</div>
+            <div>Your idea will be automatically expanded into a Pickaxe prompt.</div>
             <TextareaAutosize
               value={prompt}
               onChange={updateState(setPrompt)}
