@@ -21,7 +21,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
       temperature: 0.7,
     });
     const completion1 = response.data.choices[0].message;
-    console.log(completion1);
 
     response = await openai.createChatCompletion({
       model: "gpt-3.5-turbo",
@@ -39,7 +38,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
       temperature: 0.7,
     });
     const completion2 = response.data.choices[0].message;
-    console.log(completion2);
 
     const msgList1 = completion1?.content?.split("\n");
     const msgList2 = completion2?.content?.split("\n\n");
@@ -50,6 +48,11 @@ export async function POST(req: NextRequest, res: NextResponse) {
     const answer = origin_answer?.replace("EXAMPLE USER INPUT: ", "");
     const title = msgList2?.[0].replace("PICKAXE TITLE: ", "");
     const description = msgList2?.[1].replace("PICKAXE DESCRIPTION: ", "");
+
+    console.log("QUESTION: ", question);
+    console.log("ANSWER: ", answer);
+    console.log("TITLE: ", title);
+    console.log("DESCRIPTION: ", description);
 
     const payload = {
       newformname: title,
