@@ -101,7 +101,7 @@ export default function Home() {
         <div className="w-1/2 bg-[#F5F1E9] flex flex-col justify-center items-center">
           <img src="/image/robot.png" />
           <div className="text-[32px] text-center font-semibold text-[#000000CC]">
-            Create your own AI app <br /> with our wizard
+            Let AI auto-<span style={{color: "#288DD7"}}>magically</span> write your prompt. <br /> Try it out!
           </div>
         </div>
         <div
@@ -111,14 +111,14 @@ export default function Home() {
           <div className="w-full px-[70px] flex flex-col gap-4">
             <div className="flex gap-2 items-center">
               <img className="h-6" src="/image/zap.png" />
-              <div className="text-2xl font-semibold">Step 1</div>
+              <div className="text-2xl font-semibold">Enter your idea</div>
             </div>
-            <div>Turn your idea into a prompt</div>
+            {/*<div>Turn your idea into a prompt</div>*/}
             <TextareaAutosize
               value={prompt}
               onChange={updateState(setPrompt)}
               className="w-full rounded-[4px] border-[1px] border-black p-[10px]"
-              placeholder="In a phrase or two, describe what you want your bot to be good at."
+              placeholder="Describe what you want your app to do..."
             />
             <button
               onClick={getPrompt}
@@ -156,10 +156,10 @@ export default function Home() {
             <div id="answer" className="w-full px-[70px] flex flex-col gap-4">
               <div className="flex gap-2 items-center">
                 <img className="h-6" src="/image/edit.png" />
-                <div className="text-2xl font-semibold">Step 2</div>
+                <div className="text-2xl font-semibold">Review your prompt</div>
               </div>
               <div>
-                Look over your prompt, polish it, and turn it into an app
+                Like what you see? Turn it into a Pickaxe and start building your app!
               </div>
               <TextareaAutosize
                 value={openaiResult}
@@ -195,7 +195,7 @@ export default function Home() {
                     <span className="sr-only">Loading...</span>
                   </div>
                 )}
-                Build your app
+                Create your Pickaxe
               </button>
             </div>
           )}
