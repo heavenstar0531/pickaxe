@@ -101,7 +101,7 @@ export default function Home() {
         <div className="w-1/2 bg-[#F5F1E9] flex flex-col justify-center items-center">
           <img src="/image/robot.png" />
           <div className="text-[32px] text-center font-semibold text-[#000000CC]">
-            Let AI auto-<span style={{color: "#288DD7"}}>magically</span> write your prompt. <br /> Try it out!
+            Let AI auto-<span style={{color: "#288DD7"}}>magically</span> create your Pickaxe. <br /> Try it out!
           </div>
         </div>
         <div
@@ -111,14 +111,14 @@ export default function Home() {
           <div className="w-full px-[70px] flex flex-col gap-4">
             <div className="flex gap-2 items-center">
               <img className="h-6" src="/image/zap.png" />
-              <div className="text-2xl font-semibold">Enter your idea</div>
+              <div className="text-2xl font-semibold">Describe</div>
             </div>
-            {/*<div>Turn your idea into a prompt</div>*/}
+            <div>Your idea will be auto-magically expanded into a Pickaxe prompt.</div>
             <TextareaAutosize
               value={prompt}
               onChange={updateState(setPrompt)}
               className="w-full rounded-[4px] border-[1px] border-black p-[10px]"
-              placeholder="Describe what you want your app to do..."
+              placeholder="Describe what your Pickaxe should do..."
             />
             <button
               onClick={getPrompt}
@@ -149,18 +149,17 @@ export default function Home() {
                   <span className="sr-only">Loading...</span>
                 </div>
               )}
-              Get your prompt
+              Generate
             </button>
           </div>
           {isShow && (
             <div id="answer" className="w-full px-[70px] flex flex-col gap-4">
               <div className="flex gap-2 items-center">
                 <img className="h-6" src="/image/edit.png" />
-                <div className="text-2xl font-semibold">Review your prompt</div>
+                <div className="text-2xl font-semibold">Review</div>
               </div>
               <div>
-                Like what you see? Turn it into a Pickaxe and start building your app!
-              </div>
+                Polish your Pickaxe prompt. When you're ready, turn it into an app.</div>
               <TextareaAutosize
                 value={openaiResult}
                 onChange={updateState(setOpenaiResult)}
@@ -195,7 +194,7 @@ export default function Home() {
                     <span className="sr-only">Loading...</span>
                   </div>
                 )}
-                Create your Pickaxe
+                Create
               </button>
             </div>
           )}
