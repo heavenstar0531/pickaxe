@@ -10,7 +10,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
   const json = await req.json();
   try {
     let response = await openai.createChatCompletion({
-      model: "gpt-4",
+      model: "gpt-3.5-turbo",
       messages: [
         {
           role: "user",
@@ -23,7 +23,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
     const completion1 = response.data.choices[0].message;
 
     response = await openai.createChatCompletion({
-      model: "gpt-4",
+      model: "gpt-3.5-turbo",
       messages: [
         {
           role: "user",
