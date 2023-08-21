@@ -1,6 +1,10 @@
-import "./globals.css";
+"use client";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { usePathname } from "next/navigation";
+
+import "./globals.css";
+import Header from "~/component/Header";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,12 +18,17 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const pathname = usePathname();
+
   return (
     <html lang="en">
       <head>
         <link rel="stylesheet" href="https://use.typekit.net/opr4dln.css" />
       </head>
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        {pathname !== "/" && <Header />}
+        {children}
+      </body>
     </html>
   );
 }
