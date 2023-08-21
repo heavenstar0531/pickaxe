@@ -200,6 +200,7 @@ export default function Home() {
           )}
         </div>
       </div>
+      <div data-iframe-height></div>
     </main>
   );
 }
