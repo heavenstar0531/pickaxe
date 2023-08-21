@@ -10,8 +10,12 @@ export async function POST(req: NextRequest, res: NextResponse) {
   const json = await req.json();
   try {
     let response = await openai.createChatCompletion({
-      model: "gpt-3.5-turbo",
+      model: "gpt-4",
       messages: [
+        {
+          role: "system",
+          content: `You are an adaptive and proficient assistant, dedicated to thoroughly understanding user inquiries and providing well-rounded and tailored solutions that effectively cater to their expectations.`,
+        },
         {
           role: "user",
           content: `INSTRUCTIONS:\nYou are an expert AI prompt engineer and prompt interpreter, and your job is to assess a PROMPT, and then come up with a concise FORM QUESTION whose answer would logically fit into the PROMPT's USER INPUT variable slot.\nThen generate a logical, concise EXAMPLE USER INPUT.\nPROMPT: ${json.prompt}\nFollow the INSTRUCTIONS:`,
