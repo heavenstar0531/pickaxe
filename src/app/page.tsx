@@ -69,7 +69,11 @@ export default function Home() {
         method: "POST",
       });
       const { link } = await response.json();
-      window.location.href = link;
+      if (window.top) {
+        window.top.location.href = link;
+      } else {
+          window.location.href = link;
+      }
     } catch (error) {
       console.error(error);
       toast.error("Something went wrong...");
