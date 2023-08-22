@@ -49,7 +49,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
     let origin_answer = msgList1?.[1] !== "" ? msgList1?.[1] : msgList1?.[2];
 
     const question = msgList1?.[0].replace("FORM QUESTION: ", "");
-    const answer = origin_answer?.replace("EXAMPLE USER INPUT: ", "");
+    const answer = "User Input";//origin_answer?.replace("EXAMPLE USER INPUT: ", "");
     const title = msgList2?.[0].replace("PICKAXE TITLE: ", "");
     const description = msgList2?.[1].replace("PICKAXE DESCRIPTION: ", "");
 
