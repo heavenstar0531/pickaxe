@@ -106,7 +106,7 @@ export default function Home() {
         </div>
         <div
           id="main"
-          className="flex flex-col gap-14 justify-start items-center w-1/2 border-l-2 border-solid border-black py-72 -mt-20"
+          className="flex flex-col gap-14 justify-start items-center w-1/2 border-l-2 border-solid border-black py-20"
         >
           <div className="w-full px-[70px] flex flex-col gap-4">
             <div className="flex gap-2 items-center">
