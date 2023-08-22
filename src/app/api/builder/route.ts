@@ -31,11 +31,14 @@ export async function POST(req: NextRequest, res: NextResponse) {
       messages: [
         {
           role: "user",
-          content: `INSTRUCTIONS:
-          You are an expert at reading, synthesizing, and summarizing text. Your job is to assess a PROMPT, and then come up with a concise, catchy PICKAXE TITLE that captures the essence of what the PROMPT does as a tool.Then generate a concise, one-sentence PICKAXE DESCRIPTION of what this PROMPT tool can help you do.
-          
-          PROMPT: ${json.prompt}
-          Follow the INSTRUCTIONS:`,
+          content: `You are an expert at reading, synthesizing, and summarizing text. Your job is to assess a PROMPT, and then come up with a concise, catchy PICKAXE TITLE that captures the essence of what the PROMPT does as a tool. Then generate a concise, one-sentence PICKAXE DESCRIPTION of what this PROMPT tool does that is no longer than 12 words.
+          Make sure to format the output in the following way
+          PICKAXE TITLE:
+          {output}
+          PICKAXE DESCRIPTION:
+          {output}
+          Follow the instructions for the following prompt:
+          ${json.prompt}`,
         },
       ],
       max_tokens: 2000,
