@@ -1,10 +1,36 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import Script from "next/script";
+import localFont from '@next/font/local';
+
+import './styles/globals.scss';
+
+
+const realHeadPro = localFont({
+  src: [
+    {
+      path: '../../public/fonts/RealHeadPro-SemiLight.ttf',
+      weight: '300'
+    },
+    {
+      path: '../../public/fonts/RealHeadPro-Regular.ttf',
+      weight: '400'
+    },
+    {
+      path: '../../public/fonts/RealHeadPro-Demibold.ttf',
+      weight: '600'
+    },
+    {
+      path: '../../public/fonts/RealHeadPro-Bold.ttf',
+      weight: '700'
+    }
+  ],
+  fallback: ['Helvetica', 'ui-sans-serif'],
+  display: 'swap'
+});
+
 
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -22,7 +48,7 @@ export default function RootLayout({
         <Script src="/scripts/childpage.js" />
         <link rel="stylesheet" href="https://use.typekit.net/opr4dln.css" />
       </head>
-      <body className={inter.className}>{children}</body>
+      <body>{children}</body>
     </html>
   );
 }

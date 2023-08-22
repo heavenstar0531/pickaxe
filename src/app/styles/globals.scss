@@ -1,0 +1,106 @@
+@font-face {
+    font-family: 'RealHeadPro';
+    src: url('/fonts/RealHeadPro-SemiLight.ttf') format('truetype');
+    font-weight: 300;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'RealHeadPro';
+    src: url('/fonts/RealHeadPro-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'RealHeadPro';
+    src: url('/fonts/RealHeadPro-Demibold.ttf') format('truetype');
+    font-weight: 600;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'RealHeadPro';
+    src: url('/fonts/RealHeadPro-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-display: swap;
+}
+
+body {
+    font-family: 'RealHeadPro', sans-serif;
+    color: black;
+}
+
+h1 {
+    font-family: 'RealHeadPro', sans-serif;
+    font-weight: 600;
+    font-size: 40px;
+    line-height: 50px;
+}
+
+h2 {
+    font-family: 'RealHeadPro', sans-serif;
+    font-weight: 600;
+    font-size: 32px;
+    line-height: 42px;
+    text-align: center;
+}
+
+h3 {
+    font-family: 'RealHeadPro', sans-serif;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 30px;
+}
+
+h4 {
+    font-family: 'RealHeadPro', sans-serif;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 30px;
+}
+
+p {
+    font-family: 'RealHeadPro', sans-serif;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 22px;
+}
+
+p.title {
+    font-family: 'RealHeadPro', sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+button {
+    font-family: 'RealHeadPro', sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 16px;
+}
+
+button.small {
+    font-family: 'RealHeadPro', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 16px;
+}
+
+p.small {
+    font-family: 'RealHeadPro', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 16px;
+}
+
+.aux-caps {
+    font-family: 'RealHeadPro', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: auto;
+    text-transform: uppercase;
+}
+
+  

@@ -4,6 +4,37 @@ import { ToastContainer, toast } from "react-toastify";
 import TextareaAutosize from 'react-autosize-textarea';
 import "react-toastify/dist/ReactToastify.css";
 
+import localFont from '@next/font/local';
+
+//import './styles/globals.scss';
+
+
+const realHeadPro = localFont({
+  src: [
+    {
+      path: '../../public/fonts/RealHeadPro-SemiLight.ttf',
+      weight: '300'
+    },
+    {
+      path: '../../public/fonts/RealHeadPro-Regular.ttf',
+      weight: '400'
+    },
+    {
+      path: '../../public/fonts/RealHeadPro-Demibold.ttf',
+      weight: '600'
+    },
+    {
+      path: '../../public/fonts/RealHeadPro-Bold.ttf',
+      weight: '700'
+    }
+  ],
+  fallback: ['Helvetica', 'ui-sans-serif'],
+  display: 'swap'
+});
+
+
+import "./globals.css";
+
 export default function Home() {
   const [prompt, setPrompt] = useState<string>("");
   const [openaiResult, setOpenaiResult] = useState<string>("");
@@ -100,7 +131,7 @@ export default function Home() {
       <div className="flex">
         <div className="w-1/2 bg-[#F5F1E9] flex flex-col justify-start items-center  py-40">
           <img src="/image/robot.png" />
-          <div className="text-[32px] text-center font-semibold text-[#000000CC]">
+          <div className="text-2xl font-semibold text-center">
             Let AI auto-<span style={{color: "#EBA300"}}>magically</span> create your Pickaxe. <br /> Try it out!
           </div>
         </div>
