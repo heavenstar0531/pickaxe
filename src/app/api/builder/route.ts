@@ -18,14 +18,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
         },
         {
           role: "user",
-          content: `You are an expert AI prompt engineer and prompt interpreter. You will assess a prompt. Imagine the prompt is a standalone app or chatbot that serves human end users. Generate a brief FORM QUESTION, which is a question or command that will prompt the human end-user to start a good conversation with the tool. The question or command will appear on a form and be followed by a brief text field where they will enter their response. Then generate a logical, concise EXAMPLE USER INPUT that a human end-user might believably enter not the form question.
-          Make sure to format the output in the following way
-          FORM QUESTION:
-          {output}
-          EXAMPLE USER INPUT:
-          {output}
-          Follow those instructions for this prompt:
-          ${json.prompt}`,
+          content: `INSTRUCTIONS:\nYou are an expert AI prompt engineer and prompt interpreter, and your job is to assess a PROMPT, and then come up with a concise FORM QUESTION whose answer would logically fit into the PROMPT's USER INPUT variable slot.\nThen generate a logical, concise EXAMPLE USER INPUT.\nPROMPT: ${json.prompt}\nFollow the INSTRUCTIONS:`,
         },
       ],
       max_tokens: 2000,
@@ -38,14 +31,11 @@ export async function POST(req: NextRequest, res: NextResponse) {
       messages: [
         {
           role: "user",
-          content: `You are an expert at reading, synthesizing, and summarizing text. Your job is to assess a PROMPT, and then come up with a concise, catchy PICKAXE TITLE that captures the essence of what the PROMPT does as a tool. Then generate a concise, one-sentence PICKAXE DESCRIPTION of what this PROMPT tool does that is no longer than 12 words.
-          Make sure to format the output in the following way
-          PICKAXE TITLE:
-          {output}
-          PICKAXE DESCRIPTION:
-          {output}
-          Follow the instructions for the following prompt:
-          ${json.prompt}`,
+          content: `INSTRUCTIONS:
+          You are an expert at reading, synthesizing, and summarizing text. Your job is to assess a PROMPT, and then come up with a concise, catchy PICKAXE TITLE that captures the essence of what the PROMPT does as a tool.Then generate a concise, one-sentence PICKAXE DESCRIPTION of what this PROMPT tool can help you do.
+          
+          PROMPT: ${json.prompt}
+          Follow the INSTRUCTIONS:`,
         },
       ],
       max_tokens: 2000,
@@ -59,8 +49,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
     let origin_answer = msgList1?.[1] !== "" ? msgList1?.[1] : msgList1?.[2];
 
     const question = msgList1?.[0].replace("FORM QUESTION: ", "");
-    //const answer = origin_answer?.replace("EXAMPLE USER INPUT: ", "");
-    const answer = "";
+    const answer = origin_answer?.replace("EXAMPLE USER INPUT: ", "");
     const title = msgList2?.[0].replace("PICKAXE TITLE: ", "");
     const description = msgList2?.[1].replace("PICKAXE DESCRIPTION: ", "");
 
