@@ -98,7 +98,7 @@ export default function Home() {
         theme="dark"
       />
       <div className="flex">
-        <div className="w-1/2 bg-[#F5F1E9] flex flex-col justify-start items-center">
+        <div className="w-1/2 bg-[#F5F1E9] flex flex-col justify-start items-center  py-40">
           <img src="/image/robot.png" />
           <div className="text-[32px] text-center font-semibold text-[#000000CC]">
             Let AI auto-<span style={{color: "#EBA300"}}>magically</span> create your Pickaxe. <br /> Try it out!
@@ -106,7 +106,7 @@ export default function Home() {
         </div>
         <div
           id="main"
-          className="flex flex-col gap-14 justify-start items-center w-1/2 border-l-2 border-solid border-black py-20"
+          className="flex flex-col gap-14 justify-start items-center w-1/2 border-l-2 border-solid border-black py-80"
         >
           <div className="w-full px-[70px] flex flex-col gap-4">
             <div className="flex gap-2 items-center">
