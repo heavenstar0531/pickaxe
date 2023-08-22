@@ -22,6 +22,7 @@ export default function Home() {
     }
     setLoading1(true);
     let data = { prompt: prompt };
+    const controller = new AbortController();
     try {
       const response = await fetch("/api/prompt", {
         body: JSON.stringify(data),
@@ -29,13 +30,14 @@ export default function Home() {
           "Content-Type": "application/json",
         },
         method: "POST",
+        signal: controller.signal,
       });
-      const { msg } = await response.json();
-      if (!msg.content) {
-        toast.error("Something went wrong...");
-        return;
-      }
-      setOpenaiResult(msg.content);
+      const streamData = response.body;
+      const reader = streamData?.getReader();
+      const decoder = new TextDecoder();
+      let text = "";
+      let done = false;
+
       setIsShow(true);
       setTimeout(function () {
         document.getElementById("main")?.scrollBy({
@@ -43,6 +45,16 @@ export default function Home() {
           behavior: "smooth",
         });
       }, 100);
+      while (!done) {
+        if (reader) {
+          const { value, done: doneReading } = await reader.read();
+          done = doneReading;
+          const chunkValue = decoder.decode(value);
+          text += chunkValue;
+          setOpenaiResult(text);
+        }
+      }
+
       toast.success("Your prompt is generated!");
     } catch (error) {
       console.error(error);
