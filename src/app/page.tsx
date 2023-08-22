@@ -108,7 +108,7 @@ export default function Home() {
           id="main"
           className="flex flex-col gap-14 justify-start items-center w-1/2 border-l-2 border-solid border-black py-72"
         >
-          <div className="w-full px-[70px] flex flex-col gap-4  mt-24">
+          <div className="w-full px-[70px] flex flex-col gap-4  mt-12">
             <div className="flex gap-2 items-center">
               <img className="h-6" src="/image/zap.png" />
               <div className="text-2xl font-semibold">Describe</div>
@@ -123,7 +123,7 @@ export default function Home() {
             <button
               onClick={getPrompt}
               disabled={loading1 || loading2}
-              className={`p-4 rounded-sm bg-[#061B2B] text-white font-semibold w-48 ${
+              className={`p-4 rounded-sm bg-[#061B2B] text-white font-semibold w-24 ${
                 (loading1 || loading2) &&
                 "flex items-center justify-center gap-1 opacity-80"
               } text-center`}
