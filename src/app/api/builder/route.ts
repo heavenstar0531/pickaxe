@@ -14,11 +14,21 @@ export async function POST(req: NextRequest, res: NextResponse) {
       messages: [
         {
           role: "system",
-          content: `You are an adaptive and proficient assistant, dedicated to thoroughly understanding user inquiries and providing well-rounded and tailored solutions that effectively cater to their expectations.`,
+          content: `INSTRUCTIONS
+          You are an expert AI prompt engineer and prompt interpreter. You will assess a prompt. Imagine the prompt is a standalone app or chatbot that serves human end users. Generate a brief FORM QUESTION, which is a question or command that will prompt the human end-user to interact with the tool. The question or command will appear on a form and be followed by a brief text field where the human end-user will enter their response.
+          
+          OUTPUT FORMATTING
+          It is required to format all outputs in the same way. Only output the FORM QUESTION content with no labels, titles, or anything else. Only the FORM QUESTION’s content.
+          
+          PROMPT TO GENERATE FORM QUESTION FOR:
+          ${json.prompt}
+          
+          FINAL INSTRUCTIONS: 
+          Using the prompt above, generate a concise FORM QUESTION following the rules which will instruct the human end-user to enter something. `,
         },
         {
           role: "user",
-          content: `INSTRUCTIONS:\nYou are an expert AI prompt engineer and prompt interpreter, and your job is to assess a PROMPT, and then come up with a concise FORM QUESTION whose answer would logically fit into the PROMPT's USER INPUT variable slot.\nThen generate a logical, concise EXAMPLE USER INPUT.\nPROMPT: ${json.prompt}\nFollow the INSTRUCTIONS:`,
+          content: json.prompt,
         },
       ],
       max_tokens: 2000,
@@ -27,42 +37,69 @@ export async function POST(req: NextRequest, res: NextResponse) {
     const completion1 = response.data.choices[0].message;
 
     response = await openai.createChatCompletion({
-      model: "gpt-3.5-turbo",
+      model: "gpt-4",
       messages: [
         {
-          role: "user",
-          content: `INSTRUCTIONS:
-          You are an expert at reading, synthesizing, and summarizing text. Your job is to assess a PROMPT, and then come up with a concise, catchy PICKAXE TITLE that captures the essence of what the PROMPT does as a tool.Then generate a concise, one-sentence PICKAXE DESCRIPTION of what this PROMPT tool can help you do.
+          role: "system",
+          content: `OBJECTIVE:
+          You are an expert at reading, synthesizing, and summarizing text. Your job is to assess a PROMPT, and then come up with a concise, catchy PICKAXE TITLE that captures the essence of what the PROMPT does as a tool. The title should be fun, catchy, and should be 6 words or less.
           
-          PROMPT: ${json.prompt}
-          Follow the INSTRUCTIONS:`,
+          OUTPUT FORMATTING
+          Make sure to format the output the same way every time according to the rules. Only output the PICKAXE TITLE content. Do not add a header, or label, or anything else. Do not add quotations. Just plain text. Just the content.
+          
+          PROMPT TO GENERATE TITLE FOR:
+          ${json.prompt}
+          
+          FINAL INSTRUCTION: 
+          Generate a fun, concise PICKAXE TITLE for the above prompt that follows all the rules.`,
+        },
+        {
+          role: "user",
+          content: json.prompt,
         },
       ],
       max_tokens: 2000,
       temperature: 0.7,
     });
     const completion2 = response.data.choices[0].message;
+    const title = completion2?.content?.replace(/^"|"$/g, "");
 
-    const msgList1 = completion1?.content?.split("\n");
-    const msgList2 = completion2?.content?.split("\n\n");
-
-    let origin_answer = msgList1?.[1] !== "" ? msgList1?.[1] : msgList1?.[2];
-
-    const question = msgList1?.[0].replace("FORM QUESTION: ", "");
-    const answer = origin_answer?.replace("EXAMPLE USER INPUT: ", "");
-    const title = msgList2?.[0].replace("PICKAXE TITLE: ", "");
-    const description = msgList2?.[1].replace("PICKAXE DESCRIPTION: ", "");
-
-    console.log("QUESTION: ", question);
-    console.log("ANSWER: ", answer);
-    console.log("TITLE: ", title);
-    console.log("DESCRIPTION: ", description);
+    response = await openai.createChatCompletion({
+      model: "gpt-4",
+      messages: [
+        {
+          role: "system",
+          content: `OBJECTIVE:
+          You are an expert at reading, synthesizing, and summarizing text. Your job is to assess a PROMPT, and then come up with a concise, catchy PICKAXE DESCRIPTION that describes what the PROMPT does as a tool. The description should be fun, informative, concise, and no more than 12 words.
+          
+          OUTPUT FORMATTING
+          Make sure to format the output the same way every time according to the rules. Only output the PICKAXE DESCRIPTION content. Do not add a header, or label, or anything else. Do not add quotation marks or quotes. Just plain text. Just the content of the PICKAXE DESCRIPTION. Here are 3 examples: 
+          - Craft captivating scripts with creative style and constructive feedback
+          - Simplifying legal jargon, drafting documents, and boosting legal confidence
+          - Get comprehensive damages estimates from rage incidents complete with dollar amounts.
+          
+          
+          PROMPT TO GENERATE DESCRIPTION FOR:
+          ${json.prompt}
+          
+          FINAL INSTRUCTION: 
+          Generate a fun, concise PICKAXE DESCRIPTION for the above prompt that follows all the rules and describes what the prompt does.`,
+        },
+        {
+          role: "user",
+          content: json.prompt,
+        },
+      ],
+      max_tokens: 2000,
+      temperature: 0.7,
+    });
+    const completion3 = response.data.choices[0].message;
 
     const payload = {
       newformname: title,
-      newformdescription: description,
-      question,
-      example: answer,
+      newformdescription: completion3?.content,
+      question: completion1?.content,
+      example: "User Input",
       prompt: json.prompt,
     };
 

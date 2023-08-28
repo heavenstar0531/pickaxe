@@ -1,37 +1,35 @@
 "use client";
 import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
-import TextareaAutosize from 'react-autosize-textarea';
+import TextareaAutosize from "react-autosize-textarea";
 import "react-toastify/dist/ReactToastify.css";
 
-import localFont from '@next/font/local';
+import localFont from "@next/font/local";
 
 //import './styles/globals.scss';
-
 
 const realHeadPro = localFont({
   src: [
     {
-      path: '../../public/fonts/RealHeadPro-SemiLight.ttf',
-      weight: '300'
+      path: "../../public/fonts/RealHeadPro-SemiLight.ttf",
+      weight: "300",
     },
     {
-      path: '../../public/fonts/RealHeadPro-Regular.ttf',
-      weight: '400'
+      path: "../../public/fonts/RealHeadPro-Regular.ttf",
+      weight: "400",
     },
     {
-      path: '../../public/fonts/RealHeadPro-Demibold.ttf',
-      weight: '600'
+      path: "../../public/fonts/RealHeadPro-Demibold.ttf",
+      weight: "600",
     },
     {
-      path: '../../public/fonts/RealHeadPro-Bold.ttf',
-      weight: '700'
-    }
+      path: "../../public/fonts/RealHeadPro-Bold.ttf",
+      weight: "700",
+    },
   ],
-  fallback: ['Helvetica', 'ui-sans-serif'],
-  display: 'swap'
+  fallback: ["Helvetica", "ui-sans-serif"],
+  display: "swap",
 });
-
 
 import "./globals.css";
 
@@ -41,6 +39,9 @@ export default function Home() {
   const [isShow, setIsShow] = useState<boolean>(false);
   const [loading1, setLoading1] = useState<boolean>(false);
   const [loading2, setLoading2] = useState<boolean>(false);
+  const [isPromptError, setIsPromptError] = useState<boolean>(false);
+  const [isBuildError, setIsBuildError] = useState<boolean>(false);
+  const [errorMsg, setErrorMsg] = useState<string>("");
   const updateState =
     (setter: React.Dispatch<React.SetStateAction<string>>) =>
     (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -48,8 +49,12 @@ export default function Home() {
     };
 
   const getPrompt = async () => {
+    setIsPromptError(false);
     if (prompt === "") {
-      toast.error("Please input your prompt.");
+      setErrorMsg(
+        "To get your prompt, type something in the text box. E.g.“I want a bot that suggests recipes based on ingredients I have”"
+      );
+      setIsPromptError(true);
       return;
     }
     setLoading1(true);
@@ -90,15 +95,20 @@ export default function Home() {
       toast.success("Your prompt is generated!");
     } catch (error) {
       console.error(error);
-      toast.error("Something went wrong...");
+      setErrorMsg("Something went wrong. Please try again.");
+      setIsPromptError(true);
     } finally {
       setLoading1(false);
     }
   };
 
   const handleBuilder = async () => {
-    if (prompt === "") {
-      toast.error("Please input your prompt.");
+    setIsBuildError(false);
+    if (openaiResult === "") {
+      setErrorMsg(
+        "To build your app, you need to start with a Pickaxe prompt."
+      );
+      setIsBuildError(true);
       return;
     }
     setLoading2(true);
@@ -113,7 +123,6 @@ export default function Home() {
         method: "POST",
       });
       const { link } = await response.json();
-      console.log(link);
       if (window.top) {
         window.top.location.href = link;
       } else {
@@ -144,19 +153,22 @@ export default function Home() {
         <div className="w-1/2 bg-[#F5F1E9] flex flex-col justify-start items-center  py-40">
           <img src="/image/robot.png" />
           <div className="text-2xl font-semibold text-center">
-            Let AI auto-<span style={{color: "#EBA300"}}>magically</span> create your Pickaxe. <br /> Try it out!
+            Let AI auto-<span style={{ color: "#EBA300" }}>magically</span>{" "}
+            create your Pickaxe. <br /> Try it out!
           </div>
         </div>
         <div
           id="main"
-          className="flex flex-col gap-14 justify-start items-center w-1/2 border-l-2 border-solid border-black py-80"
+          className="flex flex-col justify-start items-center w-1/2 border-l-2 border-solid border-black py-80"
         >
           <div className="w-full px-[70px] flex flex-col gap-4">
             <div className="flex gap-2 items-center">
               <img className="h-6" src="/image/zap.png" />
               <div className="text-2xl font-semibold">Describe</div>
             </div>
-            <div>Your idea will be automatically expanded into a Pickaxe prompt.</div>
+            <div>
+              Your idea will be automatically expanded into a Pickaxe prompt.
+            </div>
             <TextareaAutosize
               value={prompt}
               onChange={updateState(setPrompt)}
@@ -167,6 +179,8 @@ export default function Home() {
               onClick={getPrompt}
               disabled={loading1 || loading2}
               className={`p-4 rounded-sm bg-[#061B2B] text-white font-semibold w-48 ${
+                !loading1 && !loading2 && "hoverButton"
+              } ${
                 (loading1 || loading2) &&
                 "flex items-center justify-center gap-1 opacity-80"
               } text-center`}
@@ -194,15 +208,28 @@ export default function Home() {
               )}
               Generate
             </button>
+            {isPromptError && (
+              <div className="mt-4 flex gap-2">
+                <img src="/image/error.png" className="h-5" />
+                <div className="text-[#f00] text-sm font-semibold">
+                  {errorMsg}
+                </div>
+              </div>
+            )}
           </div>
           {isShow && (
-            <div id="answer" className="w-full px-[70px] flex flex-col gap-4">
+            <div
+              id="answer"
+              className="w-full px-[70px] pt-14 flex flex-col gap-4"
+            >
               <div className="flex gap-2 items-center">
                 <img className="h-6" src="/image/edit.png" />
                 <div className="text-2xl font-semibold">Review</div>
               </div>
               <div>
-                Polish your Pickaxe prompt. When you're ready, turn it into an app.</div>
+                Polish your Pickaxe prompt. When you're ready, turn it into an
+                app.
+              </div>
               <TextareaAutosize
                 value={openaiResult}
                 onChange={updateState(setOpenaiResult)}
@@ -210,6 +237,8 @@ export default function Home() {
               />
               <button
                 className={`p-4 rounded-sm bg-[#061B2B] text-white font-semibold w-48 ${
+                  !loading1 && !loading2 && "hoverButton"
+                } ${
                   (loading2 || loading1) &&
                   "flex items-center justify-center gap-1 opacity-80"
                 }`}
@@ -239,6 +268,14 @@ export default function Home() {
                 )}
                 Create
               </button>
+              {isBuildError && (
+                <div className="mt-4 flex gap-2">
+                  <img src="/image/error.png" className="h-5" />
+                  <div className="text-[#f00] text-sm font-semibold">
+                    {errorMsg}
+                  </div>
+                </div>
+              )}
             </div>
           )}
         </div>

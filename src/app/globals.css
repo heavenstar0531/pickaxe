@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .hoverButton:hover {
+    color: #061b2b;
+    background-color: #f4ba42;
+    border: 2px solid black;
+  }
+}
